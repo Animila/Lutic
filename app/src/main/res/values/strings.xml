@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Лютик</string>
+    <string name="login">Номер телефона</string>
+    <string name="password">Введите свой пароль</string>
 </resources>
