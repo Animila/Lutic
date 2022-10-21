@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "786424284489",
+    "project_id": "lutic-d30ae",
+    "storage_bucket": "lutic-d30ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786424284489:android:a45e75ee499ad69c274698",
+        "android_client_info": {
+          "package_name": "com.example.lutic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786424284489-kgk0jh8pttmq1ia1227gip7cv6701cr6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lutic",
+            "certificate_hash": "54b0c2c7ae4532f4227299e9a252f9fe89e675fd"
+          }
+        },
+        {
+          "client_id": "786424284489-mfvqtb87giheuv8ab5ki6cm8dh5eu625.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1vLNbjrqEA6KmJ69ifYkmugdta5nOdZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786424284489-mfvqtb87giheuv8ab5ki6cm8dh5eu625.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
