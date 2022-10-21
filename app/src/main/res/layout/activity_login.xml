@@ -43,10 +43,11 @@
       android:hint="@string/login"
       android:inputType="number"
       android:paddingLeft="12dp"
+      android:textColor="@color/black"
       android:textColorHint="#959595"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.496"
 
+      app:layout_constraintHorizontal_bias="0.496"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView"
       tools:ignore="TextFields" />
@@ -58,18 +59,17 @@
       android:layout_marginTop="4dp"
       android:background="@drawable/input"
       android:hint="@string/password"
-      android:inputType="number"
       android:paddingLeft="12dp"
+      android:textColor="@color/black"
       android:textColorHint="#959595"
-      app:layout_constraintEnd_toEndOf="parent"
 
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.495"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/register_phone"
-      tools:ignore="TextFields" />
+      app:layout_constraintTop_toBottomOf="@+id/register_phone" />
 
   <Button
-      android:id="@+id/regBtn"
+      android:id="@+id/authBtn"
       style="@style/Widget.MaterialComponents.Button"
       android:layout_width="146dp"
       android:layout_height="48dp"
@@ -93,7 +93,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.492"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/regBtn" />
+      app:layout_constraintTop_toBottomOf="@+id/authBtn" />
 
   <TextView
       android:id="@+id/recoveryLink"
@@ -106,7 +106,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.492"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/regBtn" />
+      app:layout_constraintTop_toBottomOf="@+id/authBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
