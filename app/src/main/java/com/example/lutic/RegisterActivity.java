@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerBtn;
     private EditText registerPhone, registerPassword;
     private ProgressDialog loadingBar;
+    private TextView authLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn = (Button) findViewById(R.id.regBtn);
         registerPhone = (EditText) findViewById(R.id.register_phone);
         registerPassword = (EditText) findViewById(R.id.register_password);
+        authLink = (TextView) findViewById(R.id.authLink);
 //        loadingBar = (ProgressBar) findViewById(R.id.progress);
         loadingBar = new ProgressDialog(this);
 
@@ -42,6 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CreateAccount();
             }
+        });
+        authLink.setOnClickListener(view -> {
+            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
         });
 
     }

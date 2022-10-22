@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lutic.Model.Users;
@@ -24,6 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     private EditText login_phone, login_password;
     private ProgressDialog loadingBar;
+    private TextView regLink, sellerLink, usersLink;
+
+    private String parentOfName = "Users";
 
 
     @Override
@@ -34,14 +40,34 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = (Button) findViewById(R.id.authBtn);
         login_phone = (EditText) findViewById(R.id.register_phone);
         login_password = (EditText) findViewById(R.id.register_password);
+        regLink = (TextView) findViewById(R.id.regLink);
         loadingBar = new ProgressDialog(this);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginUser();
-            }
+        sellerLink = (TextView) findViewById(R.id.prodovecLink);
+        usersLink = (TextView) findViewById(R.id.usersLink);
+
+        regLink.setOnClickListener(view -> {
+            Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(registerIntent);
         });
+
+        sellerLink.setOnClickListener(view -> {
+            usersLink.setVisibility(View.VISIBLE);
+            sellerLink.setVisibility(View.INVISIBLE);
+            loginBtn.setText("Войти как продавец");
+            parentOfName = "Sellers";
+
+        });
+        usersLink.setOnClickListener(view -> {
+            usersLink.setVisibility(View.INVISIBLE);
+            sellerLink.setVisibility(View.VISIBLE);
+            loginBtn.setText("Войти");
+            parentOfName = "Users";
+
+        });
+
+        loginBtn.setOnClickListener(view -> loginUser());
+
 
     }
 
@@ -72,14 +98,24 @@ public class LoginActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child("Users").child(phone).exists()) {
-                    Users userData = snapshot.child("Users").child(phone).getValue(Users.class);
+                if(snapshot.child(parentOfName).child(phone).exists()) {
+                    Users userData = snapshot.child(parentOfName).child(phone).getValue(Users.class);
                     if(userData.getPhone().equals(phone)) {
                         if(userData.getPassword().equals(password)) {
-                            loadingBar.dismiss();
-                            Toast.makeText(LoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
-                            Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(homeIntent);
+                            if (parentOfName.equals("Users")) {
+                                Log.i("TEST_APP", "Покупатель");
+                                loadingBar.dismiss();
+                                Toast.makeText(LoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
+                                Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(homeIntent);
+
+                            } else if (parentOfName.equals("Sellers")) {
+                                Log.i("TEST_APP", "Продавец");
+                                loadingBar.dismiss();
+                                Toast.makeText(LoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
+                                Intent sellerIntent = new Intent(LoginActivity.this, SellerActivity.class);
+                                startActivity(sellerIntent);
+                            }
                         } else {
                             Toast.makeText(LoginActivity.this, "неверный пароль", Toast.LENGTH_SHORT).show();
                         }

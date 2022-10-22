@@ -59,10 +59,11 @@
       android:layout_marginTop="4dp"
       android:background="@drawable/input"
       android:hint="@string/password"
+      android:inputType="textPassword"
       android:paddingLeft="12dp"
       android:textColor="@color/black"
-      android:textColorHint="#959595"
 
+      android:textColorHint="#959595"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.495"
       app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +72,8 @@
   <Button
       android:id="@+id/authBtn"
       style="@style/Widget.MaterialComponents.Button"
-      android:layout_width="146dp"
-      android:layout_height="48dp"
+      android:layout_width="170dp"
+      android:layout_height="57dp"
       android:layout_marginTop="12dp"
       android:background="@drawable/button"
       android:text="Войти"
@@ -104,9 +105,34 @@
       android:text="Забыли пароль?"
       android:textColor="@color/cardview_dark_background"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.492"
+      app:layout_constraintHorizontal_bias="0.498"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/authBtn" />
+
+  <TextView
+      android:id="@+id/usersLink"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="100dp"
+      android:text="Пользователь"
+      android:textColor="@color/cardview_dark_background"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.619"
+      app:layout_constraintStart_toEndOf="@+id/regLink"
+      app:layout_constraintTop_toBottomOf="@+id/register_password" />
+
+  <TextView
+      android:id="@+id/prodovecLink"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="100dp"
+      android:text="Продавец"
+      android:textColor="@color/cardview_dark_background"
+      app:layout_constraintEnd_toStartOf="@+id/regLink"
+      app:layout_constraintHorizontal_bias="0.242"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/register_password" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
