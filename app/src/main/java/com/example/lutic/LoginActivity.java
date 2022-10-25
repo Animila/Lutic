@@ -11,16 +11,20 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lutic.Model.Users;
+import com.example.lutic.Prevalent.Prevalent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView regLink, sellerLink, usersLink;
 
     private String parentOfName = "Users";
+    private CheckBox checkBoxRememberMe;
 
 
     @Override
@@ -45,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
 
         sellerLink = (TextView) findViewById(R.id.prodovecLink);
         usersLink = (TextView) findViewById(R.id.usersLink);
+        checkBoxRememberMe = (CheckBox) findViewById(R.id.login_checkbox);
+        Paper.init(this);
 
         regLink.setOnClickListener(view -> {
             Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -92,6 +99,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void ValidateUser(String phone, String password) {
+
+        if(checkBoxRememberMe.isChecked()) {
+            Paper.book().write(Prevalent.UserPhoneKey, phone);
+            Paper.book().write(Prevalent.UserPasswordKey, password);
+        }
+
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -106,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.i("TEST_APP", "Покупатель");
                                 loadingBar.dismiss();
                                 Toast.makeText(LoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
-                                Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                                Intent homeIntent = new Intent(LoginActivity.this, UserActivity.class);
                                 startActivity(homeIntent);
 
                             } else if (parentOfName.equals("Sellers")) {
@@ -117,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(sellerIntent);
                             }
                         } else {
+                            loadingBar.dismiss();
                             Toast.makeText(LoginActivity.this, "неверный пароль", Toast.LENGTH_SHORT).show();
                         }
                     }

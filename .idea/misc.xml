@@ -5,12 +5,28 @@
       <map>
         <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/drawable/button.xml" value="0.2555" />
         <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/drawable/input.xml" value="0.2555" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/drawable/inputseacrh.xml" value="0.2555" />
         <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_admin.xml" value="0.18802083333333333" />
-        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_home.xml" value="0.25104166666666666" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_home_user.xml" value="0.23697916666666666" />
         <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_register.xml" value="0.5" />
         <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_seller.xml" value="0.36666666666666664" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/activity_user.xml" value="0.18802083333333333" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/app_bar_home_user.xml" value="0.25104166666666666" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/app_bar_user.xml" value="0.25104166666666666" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/appbar.xml" value="0.20572916666666666" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/appbarusers.xml" value="0.5" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/content_home_user.xml" value="0.36666666666666664" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/content_user.xml" value="0.25104166666666666" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/fragment_gallery.xml" value="0.20677083333333332" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/fragment_slideshow.xml" value="0.18802083333333333" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/layout/nav_header_user.xml" value="0.25104166666666666" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/menu/activity_main_drawer.xml" value="0.75" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/menu/user.xml" value="0.25104166666666666" />
+        <entry key="..\:/khris/Desktop/Lutic2/app/src/main/res/menu/user_menu.xml" value="0.25" />
       </map>
     </option>
   </component>

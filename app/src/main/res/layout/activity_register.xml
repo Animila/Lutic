@@ -58,6 +58,7 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/input"
         android:hint="@string/new_password"
+        android:inputType="textVisiblePassword"
         android:paddingLeft="12dp"
         android:textColor="@color/black"
         android:textColorHint="#959595"

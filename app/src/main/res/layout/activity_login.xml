@@ -8,6 +8,8 @@
     tools:context=".LoginActivity"
     android:background="@color/white">
 
+
+
   <ImageView
       android:id="@+id/imageView"
       android:layout_width="wrap_content"
@@ -86,26 +88,12 @@
       android:id="@+id/regLink"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="12dp"
+      android:layout_marginTop="48dp"
       android:fontFamily="@font/noto_sans"
       android:text="Зарегистрироваться"
       android:textColor="@color/black"
       android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.492"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/authBtn" />
-
-  <TextView
-      android:id="@+id/recoveryLink"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="40dp"
-      android:fontFamily="@font/noto_sans"
-      android:text="Забыли пароль?"
-      android:textColor="@color/cardview_dark_background"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.498"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/authBtn" />
 
@@ -133,6 +121,19 @@
       app:layout_constraintHorizontal_bias="0.242"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/register_password" />
+
+  <CheckBox
+      android:id="@+id/login_checkbox"
+      android:layout_width="122dp"
+      android:layout_height="19dp"
+      android:text="Запомнить"
+      android:textColor="@color/black"
+      app:layout_constraintBottom_toTopOf="@+id/regLink"
+      app:layout_constraintEnd_toStartOf="@+id/usersLink"
+      app:layout_constraintHorizontal_bias="0.628"
+      app:layout_constraintStart_toEndOf="@+id/prodovecLink"
+      app:layout_constraintTop_toBottomOf="@+id/register_password"
+      app:layout_constraintVertical_bias="0.818" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
