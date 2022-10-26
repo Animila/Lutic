@@ -62,39 +62,42 @@
     <EditText
         android:id="@+id/settings_account_name"
         android:layout_width="368dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_below="@id/settings_account_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/input"
         android:hint="Ваше имя"
         android:paddingLeft="15dp"
+        android:textColor="@color/black"
         android:textColorHint="#959595" />
-
 
 
     <EditText
         android:id="@+id/settings_account_number"
         android:layout_width="368dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_below="@id/settings_account_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/input"
         android:hint="Ваш телефон"
+        android:inputType="phone"
         android:paddingLeft="15dp"
+        android:textColor="@color/black"
         android:textColorHint="#959595" />
 
     <EditText
         android:id="@+id/settings_account_address"
         android:layout_width="368dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_below="@id/settings_account_number"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/input"
         android:hint="Ваш адрес"
         android:paddingLeft="15dp"
+        android:textColor="@color/black"
         android:textColorHint="#959595" />
 
 </RelativeLayout>

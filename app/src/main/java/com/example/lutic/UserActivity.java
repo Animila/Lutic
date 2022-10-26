@@ -3,18 +3,21 @@ package com.example.lutic;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 
 
+import com.example.lutic.Prevalent.Prevalent;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.lutic.databinding.ActivityUserBinding;
+import com.squareup.picasso.Picasso;
 
 import io.paperdb.Paper;
 
@@ -32,6 +36,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
     private AppBarConfiguration mAppBarConfiguration;
     private ImageView openNav;
+
 
     @SuppressLint("RtlHardcoded")
     @Override
@@ -57,6 +62,14 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView userNameTextView = headerView.findViewById(R.id.accountName);
+        ImageView profileImageView = headerView.findViewById(R.id.accountImg);
+        Log.d("myLog", ""+Prevalent.currentUser);
+        userNameTextView.setText(Prevalent.currentUser.getName());
+        Picasso.get().load(Prevalent.currentUser.getImage()).placeholder(R.drawable.account_image).into(profileImageView);
+
     }
 
     @Override

@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(LoginActivity.this, UserActivity.class);
                                 startActivity(homeIntent);
+                                Prevalent.currentUser = userData;
 
                             } else if (parentOfName.equals("Sellers")) {
                                 Log.i("TEST_APP", "Продавец");

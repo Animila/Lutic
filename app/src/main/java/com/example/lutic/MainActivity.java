@@ -75,10 +75,12 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("Users").child(phone).exists()) {
                     Users userData = snapshot.child("Users").child(phone).getValue(Users.class);
+                    Log.e("myTag", ""+userData);
                     if(userData.getPhone().equals(phone)) {
                         if(userData.getPassword().equals(password)) {
                             Log.i("TEST_APP", "Покупатель");
                             loadingBar.dismiss();
+                            Prevalent.currentUser = userData;
                             Toast.makeText(MainActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
                             Intent homeIntent = new Intent(MainActivity.this, UserActivity.class);
                             startActivity(homeIntent);
