@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 ValidateUser(UserPhoneKey, UserPasswordKey);
             }
         }
+
+
     }
 
     private void ValidateUser(String phone, String password) {

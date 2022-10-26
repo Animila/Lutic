@@ -84,9 +84,8 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         } else if(id == R.id.nav_products) {
 
         } else if(id == R.id.nav_setting) {
-
-        } else if(id == R.id.nav_profile) {
-
+            Intent loginIntent = new Intent(UserActivity.this, SettingsActivity.class);
+            startActivity(loginIntent);
         } else if(id == R.id.nav_exit) {
             Paper.book().destroy();
             Intent loginIntent = new Intent(UserActivity.this, LoginActivity.class);
