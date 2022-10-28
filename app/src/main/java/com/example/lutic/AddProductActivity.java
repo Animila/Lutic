@@ -64,7 +64,7 @@ public class AddProductActivity extends AppCompatActivity {
         productPrice = (EditText) findViewById(R.id.productPrice);
         AddNewProductBtn = (Button) findViewById(R.id.addProductSave);
         ProductImageRef = FirebaseStorage.getInstance().getReference().child("Product_Images");
-        ProductRef = FirebaseDatabase.getInstance().getReference().child("Products ");
+        ProductRef = FirebaseDatabase.getInstance().getReference().child("Products");
         loadingBar = new ProgressDialog(this);
     }
 
