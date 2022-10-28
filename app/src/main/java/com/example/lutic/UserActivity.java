@@ -103,7 +103,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model) {
                 holder.txtProductName.setText(model.getProduct_name());
                 holder.txtProductDescription.setText(model.getDescription());
-                holder.txtProductPrice.setText("Price = " + model.getPrice() + "руб.");
+                holder.txtProductPrice.setText("Стоимость: " + model.getPrice() + " руб.");
                 Picasso.get().load(model.getImage()).into(holder.imageView);
 
             }

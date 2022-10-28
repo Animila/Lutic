@@ -72,7 +72,7 @@ public class AddProductActivity extends AppCompatActivity {
     private void ValidateProductData() {
         Description = productAbout.getText().toString();
         Name = productAbout.getText().toString();
-        Price = productAbout.getText().toString();
+        Price = productPrice.getText().toString();
 
         if(ImageUri == null) {
             Toast.makeText(this, "Добавьте изображение товара", Toast.LENGTH_SHORT).show();
@@ -123,6 +123,7 @@ public class AddProductActivity extends AppCompatActivity {
                 return filePath.getDownloadUrl();
             }).addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
+                    downloadImageUrl = task.getResult().toString();
                     Toast.makeText(AddProductActivity.this, "Фото сохранено", Toast.LENGTH_SHORT).show();
 
                     SaveProductInfoToDatabase();
