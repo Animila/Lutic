@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,7 +64,7 @@ public class AddProductActivity extends AppCompatActivity {
         productAbout = (EditText) findViewById(R.id.productAbout);
         productPrice = (EditText) findViewById(R.id.productPrice);
         AddNewProductBtn = (Button) findViewById(R.id.addProductSave);
-        ProductImageRef = FirebaseStorage.getInstance().getReference().child("Product_Images");
+        ProductImageRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         ProductRef = FirebaseDatabase.getInstance().getReference().child("Products");
         loadingBar = new ProgressDialog(this);
     }
@@ -97,46 +98,36 @@ public class AddProductActivity extends AppCompatActivity {
         loadingBar.show();
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("ddMMyyyy");
         SaveCurrentDate = currentDate.format(calendar.getTime());
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH.mm.ss");
+        SimpleDateFormat currentTime = new SimpleDateFormat("HHmmss");
         SaveCurrentTime = currentTime.format(calendar.getTime());
 
         productRandomKey = SaveCurrentDate + SaveCurrentTime;
+        Log.d("myTag", ""+productRandomKey);
 
-        StorageReference filePath = ProductImageRef.child(ImageUri.getLastPathSegment() + productRandomKey + ".webp");
+        final StorageReference filePath = ProductImageRef.child(ImageUri.getLastPathSegment() + productRandomKey + ".webp");
         final UploadTask uploadTask = filePath.putFile(ImageUri);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                String message = e.toString();
-                Toast.makeText(AddProductActivity.this, "Ошибка: "+message, Toast.LENGTH_SHORT).show();
-                loadingBar.dismiss();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(AddProductActivity.this, "Изображение успешно загружено", Toast.LENGTH_SHORT).show();
-                Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-                        downloadImageUrl = filePath.getDownloadUrl().toString();
-                        return filePath.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(AddProductActivity.this, "Фото сохранено", Toast.LENGTH_SHORT).show();
 
-                            SaveProductInfoToDatabase();
-                        }
-                    }
-                });
-            }
+        uploadTask.addOnFailureListener(e -> {
+            String message = e.toString();
+            Toast.makeText(AddProductActivity.this, "Ошибка: "+message, Toast.LENGTH_SHORT).show();
+            loadingBar.dismiss();
+        }).addOnSuccessListener(taskSnapshot -> {
+            Toast.makeText(AddProductActivity.this, "Изображение успешно загружено", Toast.LENGTH_SHORT).show();
+            uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                downloadImageUrl = filePath.getDownloadUrl().toString();
+                return filePath.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    Toast.makeText(AddProductActivity.this, "Фото сохранено", Toast.LENGTH_SHORT).show();
+
+                    SaveProductInfoToDatabase();
+                }
+            });
         });
     }
     private void SaveProductInfoToDatabase() {
@@ -149,19 +140,16 @@ public class AddProductActivity extends AppCompatActivity {
         productMap.put("price", Price);
         productMap.put("name", Name);
 
-        ProductRef.child(productRandomKey).updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    loadingBar.dismiss();
-                    Toast.makeText(AddProductActivity.this, "Товар добавлен", Toast.LENGTH_SHORT).show();
-                    Intent AddProductIntent = new Intent(AddProductActivity.this, SellerActivity.class);
-                    startActivity(AddProductIntent);
-                } else {
-                    String message = task.getException().toString();
-                    Toast.makeText(AddProductActivity.this, "Ошибка: "+message, Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
-                }
+        ProductRef.child(productRandomKey).updateChildren(productMap).addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                loadingBar.dismiss();
+                Toast.makeText(AddProductActivity.this, "Товар добавлен", Toast.LENGTH_SHORT).show();
+                Intent AddProductIntent = new Intent(AddProductActivity.this, SellerActivity.class);
+                startActivity(AddProductIntent);
+            } else {
+                String message = task.getException().toString();
+                Toast.makeText(AddProductActivity.this, "Ошибка: "+message, Toast.LENGTH_SHORT).show();
+                loadingBar.dismiss();
             }
         });
     }
