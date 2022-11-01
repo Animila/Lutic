@@ -1,5 +1,6 @@
 package com.example.lutic.Model;
 
+
 public class Products {
     private String product_name, description, price, image, id, date, time;
 
@@ -7,8 +8,8 @@ public class Products {
 
     }
 
-    public Products(String product_name, String description, String price, String image, String id, String date, String time) {
-        this.product_name = product_name;
+    public Products(String name, String description, String price, String image, String id, String date, String time) {
+        this.product_name = name;
         this.description = description;
         this.price = price;
         this.image = image;
@@ -17,12 +18,12 @@ public class Products {
         this.time = time;
     }
 
-    public String getProduct_name() {
+    public String getName() {
         return product_name;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setName(String name) {
+        this.product_name = name;
     }
 
     public String getDescription() {

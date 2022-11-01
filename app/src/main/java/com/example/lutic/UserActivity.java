@@ -3,14 +3,11 @@ package com.example.lutic;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,21 +21,21 @@ import com.example.lutic.Prevalent.Prevalent;
 import com.example.lutic.ViewHolder.ProductViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lutic.databinding.ActivityUserBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import io.paperdb.Paper;
 
@@ -81,13 +78,12 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.accountName);
         ImageView profileImageView = headerView.findViewById(R.id.accountImg);
-        Log.d("myLog", ""+Prevalent.currentUser);
         userNameTextView.setText(Prevalent.currentUser.getName());
         Picasso.get().load(Prevalent.currentUser.getImage()).placeholder(R.drawable.account_image).into(profileImageView);
 
         recyclerView = findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
 
     }
@@ -100,8 +96,8 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                 .setQuery(ProductsRef, Products.class).build();
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model) {
-                holder.txtProductName.setText(model.getProduct_name());
+            protected void onBindViewHolder(@NonNull @NotNull ProductViewHolder holder, int position, @NotNull @NonNull Products model) {
+                holder.txtProductName.setText(model.getName());
                 holder.txtProductDescription.setText(model.getDescription());
                 holder.txtProductPrice.setText("Стоимость: " + model.getPrice() + " руб.");
                 Picasso.get().load(model.getImage()).into(holder.imageView);
@@ -151,6 +147,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             Paper.book().destroy();
             Intent loginIntent = new Intent(UserActivity.this, LoginActivity.class);
             startActivity(loginIntent);
+            this.finish();
         }
         DrawerLayout drawerLayout= findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);

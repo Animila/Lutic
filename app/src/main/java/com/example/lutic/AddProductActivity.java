@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.lutic.Prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +43,7 @@ public class AddProductActivity extends AppCompatActivity {
     private StorageReference ProductImageRef;
     private DatabaseReference ProductRef;
     private ProgressDialog loadingBar;
+    private String Seller = Prevalent.currentUser.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void ValidateProductData() {
         Description = productAbout.getText().toString();
-        Name = productAbout.getText().toString();
+        Name = productName.getText().toString();
         Price = productPrice.getText().toString();
 
         if(ImageUri == null) {
@@ -133,6 +135,7 @@ public class AddProductActivity extends AppCompatActivity {
     }
     private void SaveProductInfoToDatabase() {
         HashMap<String, Object> productMap = new HashMap<>();
+        productMap.put("storeName", Seller);
         productMap.put("pid", productRandomKey);
         productMap.put("date", SaveCurrentDate);
         productMap.put("time", SaveCurrentTime);

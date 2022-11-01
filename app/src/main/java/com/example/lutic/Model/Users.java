@@ -3,8 +3,7 @@ package com.example.lutic.Model;
 public class Users {
     private String name, phone, password, image;
 
-    public Users()
-    {
+    public Users() {
 
     }
 
