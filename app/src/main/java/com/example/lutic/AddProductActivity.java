@@ -43,7 +43,7 @@ public class AddProductActivity extends AppCompatActivity {
     private StorageReference ProductImageRef;
     private DatabaseReference ProductRef;
     private ProgressDialog loadingBar;
-    private String Seller = Prevalent.currentUser.getName();
+    private String seller = Prevalent.currentUser.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +135,7 @@ public class AddProductActivity extends AppCompatActivity {
     }
     private void SaveProductInfoToDatabase() {
         HashMap<String, Object> productMap = new HashMap<>();
-        productMap.put("storeName", Seller);
+        productMap.put("storeName", seller);
         productMap.put("pid", productRandomKey);
         productMap.put("date", SaveCurrentDate);
         productMap.put("time", SaveCurrentTime);
@@ -150,6 +150,7 @@ public class AddProductActivity extends AppCompatActivity {
                 Toast.makeText(AddProductActivity.this, "Товар добавлен", Toast.LENGTH_SHORT).show();
                 Intent AddProductIntent = new Intent(AddProductActivity.this, SellerActivity.class);
                 startActivity(AddProductIntent);
+                this.finish();
             } else {
                 String message = task.getException().toString();
                 Toast.makeText(AddProductActivity.this, "Ошибка: "+message, Toast.LENGTH_SHORT).show();

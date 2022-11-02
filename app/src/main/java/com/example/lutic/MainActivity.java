@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         authButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerButton);
         loadingBar = new ProgressDialog(this);
+        loadingBar.setTitle("Проверка наличия аккаунта");
+        loadingBar.show();
 
         Paper.init(this);
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent register = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(register);
+                finish();
             }
         });
         String UserPhoneKey = Paper.book().read(Prevalent.UserPhoneKey);
@@ -60,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
         if(!Objects.equals(UserPhoneKey, "") && !Objects.equals(UserPasswordKey, "")) {
             if(!TextUtils.isEmpty(UserPhoneKey) && !TextUtils.isEmpty(UserPasswordKey)) {
                 ValidateUser(UserPhoneKey, UserPasswordKey);
+            } else {
+                loadingBar.dismiss();
             }
+        } else {
+            loadingBar.dismiss();
         }
 
 
@@ -73,12 +80,11 @@ public class MainActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child("Users").child(phone).exists()) {
+                if(snapshot.child("Users").child(phone).exists())
+                {
                     Users userData = snapshot.child("Users").child(phone).getValue(Users.class);
-                    Log.e("myTag", ""+userData);
                     if(userData.getPhone().equals(phone)) {
                         if(userData.getPassword().equals(password)) {
-                            Log.i("TEST_APP", "Покупатель");
                             loadingBar.dismiss();
                             Prevalent.currentUser = userData;
                             Toast.makeText(MainActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
@@ -88,14 +94,31 @@ public class MainActivity extends AppCompatActivity {
                             loadingBar.dismiss();
                         }
                     }
-                } else {
+                }
+                else if(snapshot.child("Sellers").child(phone).exists())
+                {
+                    Users userData = snapshot.child("Sellers").child(phone).getValue(Users.class);
+                    if (userData.getPhone().equals(phone)) {
+                        if (userData.getPassword().equals(password)) {
+                            loadingBar.dismiss();
+                            Prevalent.currentUser = userData;
+                            Toast.makeText(MainActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
+                            Intent homeIntent = new Intent(MainActivity.this, SellerActivity.class);
+                            startActivity(homeIntent);
+                        } else {
+                            loadingBar.dismiss();
+                        }
+                    }
+
+                }
+                else
+                {
                     loadingBar.dismiss();
                     Toast.makeText(MainActivity.this, "Аккаунт " + phone + " не существует", Toast.LENGTH_SHORT).show();
                     Intent registerIntant = new Intent(MainActivity.this, RegisterActivity.class);
                     startActivity(registerIntant);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

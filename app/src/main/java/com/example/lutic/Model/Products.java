@@ -1,14 +1,16 @@
 package com.example.lutic.Model;
 
 
+import android.util.Log;
+
 public class Products {
-    private String product_name, description, price, image, id, date, time;
+    private String product_name, description, price, image, id, date, time, storeName;
 
     public Products() {
 
     }
 
-    public Products(String name, String description, String price, String image, String id, String date, String time) {
+    public Products(String name, String description, String price, String image, String id, String date, String time, String storeName) {
         this.product_name = name;
         this.description = description;
         this.price = price;
@@ -16,6 +18,16 @@ public class Products {
         this.id = id;
         this.date = date;
         this.time = time;
+        this.storeName = storeName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        Log.d("myLog", "SETTER: "+storeName);
+        this.storeName = storeName;
     }
 
     public String getName() {

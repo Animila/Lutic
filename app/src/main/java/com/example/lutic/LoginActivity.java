@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
                                 Intent sellerIntent = new Intent(LoginActivity.this, SellerActivity.class);
                                 startActivity(sellerIntent);
+                                Prevalent.currentUser = userData;
                             }
                         } else {
                             loadingBar.dismiss();

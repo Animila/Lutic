@@ -3,6 +3,7 @@ package com.example.lutic;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +44,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private AppBarConfiguration mAppBarConfiguration;
     private ImageView openNav;
     DatabaseReference ProductsRef;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
     RecyclerView.LayoutManager layoutManager;
 
 
@@ -81,26 +81,31 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         userNameTextView.setText(Prevalent.currentUser.getName());
         Picasso.get().load(Prevalent.currentUser.getImage()).placeholder(R.drawable.account_image).into(profileImageView);
 
-        recyclerView = findViewById(R.id.recycler_menu);
-        recyclerView.setHasFixedSize(true);
+        recyclerView2 = findViewById(R.id.recycler_menu);
+        recyclerView2.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView2.setLayoutManager(layoutManager);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
                 .setQuery(ProductsRef, Products.class).build();
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull @NotNull ProductViewHolder holder, int position, @NotNull @NonNull Products model) {
-                holder.txtProductName.setText(model.getName());
-                holder.txtProductDescription.setText(model.getDescription());
-                holder.txtProductPrice.setText("Стоимость: " + model.getPrice() + " руб.");
-                Picasso.get().load(model.getImage()).into(holder.imageView);
+                Log.d("myLog", "Модель"+model.getStoreName());
+                Log.d("myLog", "Пользователь"+(model.getStoreName() != Prevalent.currentUser.getName()));
+
+                if(model.getStoreName() != Prevalent.currentUser.getName()) {
+                    holder.txtProductName.setText(model.getName());
+                    holder.txtProductDescription.setText(model.getDescription());
+                    holder.txtProductPrice.setText("Стоимость: " + model.getPrice() + " руб.");
+                    Picasso.get().load(model.getImage()).into(holder.imageView);
+                }
+
 
             }
 
@@ -112,7 +117,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                 return holder;
             }
         };
-        recyclerView.setAdapter(adapter);
+        recyclerView2.setAdapter(adapter);
         adapter.startListening();
     }
 
@@ -139,10 +144,13 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         if(id == R.id.nav_orders) {
 
         } else if(id == R.id.nav_products) {
-
-        } else if(id == R.id.nav_setting) {
+            Intent loginIntent = new Intent(UserActivity.this, UserActivity.class);
+            startActivity(loginIntent);
+            this.finish();
+        } else if(id == R.id.nav_profile) {
             Intent loginIntent = new Intent(UserActivity.this, SettingsActivity.class);
             startActivity(loginIntent);
+            this.finish();
         } else if(id == R.id.nav_exit) {
             Paper.book().destroy();
             Intent loginIntent = new Intent(UserActivity.this, LoginActivity.class);

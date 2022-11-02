@@ -19,10 +19,6 @@
             android:icon="@android:drawable/ic_dialog_email"
             android:title="Заказы" />
         <item
-            android:id="@+id/nav_setting"
-            android:icon="@android:drawable/ic_menu_manage"
-            android:title="Настройки" />
-        <item
             android:id="@+id/nav_exit"
             android:icon="@android:drawable/ic_input_delete"
             android:title="Выход" />
